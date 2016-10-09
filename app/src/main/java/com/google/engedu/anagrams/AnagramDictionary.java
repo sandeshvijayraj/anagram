@@ -123,8 +123,8 @@ public class       AnagramDictionary {
         int si;
         ArrayList<String> thi=new ArrayList<String>();
         String s;
-        for(a='a';a<'m';a++) {
-            for (b = 'z'; b >= 'm'; b--) {
+        for(a='a';a<'z';a++) {
+            for (b = 'a'; b <= 'z'; b--) {
                 s = b + word;
                 thi = getAnagramsWithOneMoreLetter(s);
                 si = thi.size();
