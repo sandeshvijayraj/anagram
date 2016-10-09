@@ -92,7 +92,8 @@ public class       AnagramDictionary {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public String pickGoodStarterWord(int d) {
-        while (true) {
+        int count=1;
+        while (count<=10) {
             int y = 0;
             int x = ThreadLocalRandom.current().nextInt(wordset.get(DEFAULT_WORD_LENGTH).size());
             if (d == 1) {
@@ -106,13 +107,14 @@ public class       AnagramDictionary {
             } else {
                 if (anagramwithtwoword(wordset.get(DEFAULT_WORD_LENGTH).get(x)).size() >= MIN_NUM_ANAGRAMS) {
                     y = DEFAULT_WORD_LENGTH;
-                    if (DEFAULT_WORD_LENGTH < MAX_WORD_LENGTH) {
+                    if (DEFAULT_WORD_LENGTH < MAX_WORD_LENGTH-1) {
                         DEFAULT_WORD_LENGTH++;
-                    }
+                    }else DEFAULT_WORD_LENGTH=3;
                     return wordset.get(y).get(x);
-                }
+                }else count++;
             }
         }
+        return "badge";
     }
     public ArrayList<String> anagramwithtwoword(String word) {
         result.clear();
