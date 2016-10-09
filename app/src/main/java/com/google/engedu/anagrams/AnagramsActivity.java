@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,8 +109,9 @@ public class AnagramsActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         EditText editText = (EditText) findViewById(R.id.editText);
         TextView resultView = (TextView) findViewById(R.id.resultView);
+        Button fab1=(Button)findViewById(R.id.fab1);
         if (currentWord == null) {
-            currentWord = dictionary.pickGoodStarterWord();
+            currentWord = dictionary.pickGoodStarterWord(1);
             anagrams = dictionary.result;
             int s=anagrams.size()-1;
             for (int i=0;i<=s;i++){
@@ -123,6 +125,7 @@ public class AnagramsActivity extends AppCompatActivity {
             gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
+            fab1.setText("");
             resultView.setText("");
             editText.setText("");
             editText.setEnabled(true);
@@ -133,6 +136,47 @@ public class AnagramsActivity extends AppCompatActivity {
             editText.setText(currentWord);
             editText.setEnabled(false);
             fab.setImageResource(android.R.drawable.ic_media_play);
+            fab1.setText("Two word\nmode");
+            currentWord = null;
+            resultView.append(TextUtils.join("\n", anagrams));
+            gameStatus.append(" Hit 'Play' to start again");
+        }
+        return true;
+    }
+    public boolean defaultAction1(View view) {
+        TextView gameStatus = (TextView) findViewById(R.id.gameStatusView);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        EditText editText = (EditText) findViewById(R.id.editText);
+        TextView resultView = (TextView) findViewById(R.id.resultView);
+        Button fab1=(Button)findViewById(R.id.fab1);
+        if (currentWord == null) {
+            currentWord = dictionary.pickGoodStarterWord(2);
+            anagrams = dictionary.result;
+            int s=anagrams.size()-1;
+            for (int i=0;i<=s;i++){
+                String sa=anagrams.get(i).replace(anagrams.get(i).substring(anagrams.get(i).length()-1), "");
+                sa=sa.replace(sa.substring(sa.length()-1), "");
+                if(sa.equals(currentWord)){
+                    anagrams.remove(i);
+                    s--;
+                    i--;
+                }
+            }
+            gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
+            fab.setImageResource(android.R.drawable.ic_menu_help);
+            fab.hide();
+            fab1.setText("");
+            resultView.setText("");
+            editText.setText("");
+            editText.setEnabled(true);
+            editText.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        } else {
+            editText.setText(currentWord);
+            editText.setEnabled(false);
+            fab.setImageResource(android.R.drawable.ic_media_play);
+            fab1.setText("Two word\nmode");
             currentWord = null;
             resultView.append(TextUtils.join("\n", anagrams));
             gameStatus.append(" Hit 'Play' to start again");
