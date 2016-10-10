@@ -113,14 +113,6 @@ public class AnagramsActivity extends AppCompatActivity {
         if (currentWord == null) {
             currentWord = dictionary.pickGoodStarterWord(1);
             anagrams = dictionary.result;
-            int s=anagrams.size()-1;
-            for (int i=0;i<=s;i++){
-                if(anagrams.get(i).contains(currentWord)){
-                    anagrams.remove(i);
-                    s--;
-                    i--;
-                }
-            }
             gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
@@ -135,6 +127,7 @@ public class AnagramsActivity extends AppCompatActivity {
             editText.setText(currentWord);
             editText.setEnabled(false);
             fab.setImageResource(android.R.drawable.ic_media_play);
+            fab.show();
             fab1.setVisibility(view.VISIBLE);
             currentWord = null;
             resultView.append(TextUtils.join("\n", anagrams));
@@ -151,14 +144,6 @@ public class AnagramsActivity extends AppCompatActivity {
         if (currentWord == null) {
             currentWord = dictionary.pickGoodStarterWord(2);
             anagrams = dictionary.result;
-            int s=anagrams.size()-1;
-            for (int i=0;i<=s;i++){
-                if(anagrams.get(i).contains(currentWord)){
-                    anagrams.remove(i);
-                    s--;
-                    i--;
-                }
-            }
             gameStatus.setText(Html.fromHtml(String.format("<big>TWO word mode</big><br>Find as many words as possible that can be formed by adding TWO letter to <big>%s</big> (but that do not contain the substring %s).", currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
