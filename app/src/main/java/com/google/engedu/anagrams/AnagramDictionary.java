@@ -106,6 +106,7 @@ public class AnagramDictionary {
                 }else count++;
             }
         }
+        result=getAnagramsWithOneMoreLetter("badge");
         return "badge";
     }
     public ArrayList<String> anagramwithtwoword(String word) {
